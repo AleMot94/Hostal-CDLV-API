@@ -1,5 +1,6 @@
 import { bedroomsServices } from '../services/bedrooms.services.js'
 // import { validate } from '../utils/validate.img.js'
+import BedroomDTO from '../DAO/mongo-dev/dto/bedroom.dto.js'
 
 class BedroomsController {
   async getAll(req, res) {
@@ -26,15 +27,23 @@ class BedroomsController {
   async postBedroom(req, res) {
     try {
       const { name, description, category } = req.body
-      const image = req.file.filename
+      const image = '/uploads/' + req.file.filename
 
+      const bedroomDTO = new BedroomDTO(name, description, category, image)
       // const validation = validate(name, description, category, image)
 
-      await bedroomsServices.postBedroom(name, description, category, image)
+      const validationBedroom = bedroomDTO.validate()
+
+      if (validationBedroom.length > 0) {
+        // Si hay errores de validación, responder con un código de estado 400 (Bad Request) y los errores
+        return res.status(400).json({ errors: validationBedroom })
+      }
+
+      const bedroom = await bedroomsServices.postBedroom(bedroomDTO)
 
       res.status(200).json({
-        status: 'piola',
-        payload: {}
+        status: 'success',
+        payload: bedroom
       })
     } catch (error) {
       return res.status(500).json({

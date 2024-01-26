@@ -6,11 +6,7 @@ export const validate = (name, description, category, image) => {
   if (name === undefined || name.trim() === '') {
     errors.push('El nombre no debe estar vacio')
   }
-  if (
-    description === undefined ||
-    description.trim() === '' ||
-    isNaN(description)
-  ) {
+  if (description === undefined || description.trim() === '') {
     errors.push('no hay descripcion')
   }
   if (
@@ -24,7 +20,7 @@ export const validate = (name, description, category, image) => {
     errors.push('Selecciona una imagen en formato jpg o png')
   } else {
     if (errors !== '') {
-      fs.unlinkSync('./public/uploads' + image.fieldname)
+      fs.unlinkSync('./public/uploads/' + image)
     }
   }
 

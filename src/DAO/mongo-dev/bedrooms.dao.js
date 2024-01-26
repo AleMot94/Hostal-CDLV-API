@@ -21,7 +21,6 @@ export default class BedroomsDao {
 
       return bedroom
     } catch (error) {
-      console.log(error)
       throw new Error(error)
     }
   }
