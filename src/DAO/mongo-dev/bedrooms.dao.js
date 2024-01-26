@@ -1,4 +1,6 @@
 import { bedroomsModel } from './models/bedrooms.model.js'
+import CustomError from '../../utils/errors/custom.error.js'
+import ErrorCode from '../../utils/errors/status.code.js'
 
 export default class BedroomsDao {
   get = async () => {
@@ -6,7 +8,11 @@ export default class BedroomsDao {
       const bedrooms = await bedroomsModel.find({})
       return bedrooms
     } catch (error) {
-      throw new Error(error)
+      throw CustomError.createError({
+        name: 'error collection',
+        message: 'coleccion "habitaciones" no encontrada',
+        statusCode: ErrorCode.Not_Found
+      })
     }
   }
 
@@ -21,7 +27,11 @@ export default class BedroomsDao {
 
       return bedroom
     } catch (error) {
-      throw new Error(error)
+      throw CustomError.createError({
+        name: 'error create',
+        message: 'no se pudo crear el documento habitacion',
+        statusCode: ErrorCode.Internal_Server_Error
+      })
     }
   }
 }

@@ -4,26 +4,11 @@ const bedroomsDao = new BedroomsDao()
 
 class BedroomsService {
   async getAllBedrooms() {
-    try {
-      const bedrooms = await bedroomsDao.get()
-      return bedrooms
-    } catch (error) {
-      throw new Error(error)
-    }
+    return bedroomsDao.get()
   }
 
   async postBedroom({ name, description, category, image }) {
-    try {
-      const bedrooms = await bedroomsDao.postOne(
-        name,
-        description,
-        category,
-        image
-      )
-      return bedrooms
-    } catch (error) {
-      throw new Error(error)
-    }
+    return bedroomsDao.postOne(name, description, category, image)
   }
 }
 
