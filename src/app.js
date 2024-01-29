@@ -6,6 +6,7 @@ import { bedroomsRouter } from './routes/bedrooms.api.router.js'
 import handleError from './middlewares/handleError.js'
 import CustomError from './utils/errors/custom.error.js'
 import ErrorCode from './utils/errors/status.code.js'
+import logger from './logger/index.js'
 
 // CONFIGURACION EXPRESS
 const app = express()
@@ -22,7 +23,6 @@ connectMongo()
 app.use('/', homeRouter)
 
 // ENDPOINTS API
-app.use('/home', homeRouter)
 app.use('/api/bedrooms', bedroomsRouter)
 
 app.get('*', (req, res, next) => {
@@ -39,4 +39,4 @@ app.get('*', (req, res, next) => {
 
 app.use(handleError)
 
-app.listen(port, () => console.log(`escuchando el puerto ${port}`))
+app.listen(port, () => logger.info(`escuchando el puerto ${port}`))

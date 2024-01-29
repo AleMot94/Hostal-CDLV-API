@@ -1,7 +1,5 @@
 import { bedroomsServices } from '../services/bedrooms.services.js'
 import BedroomDTO from '../DAO/mongo-dev/dto/bedroom.dto.js'
-import CustomError from '../utils/errors/custom.error.js'
-import ErrorCode from '../utils/errors/status.code.js'
 
 class BedroomsController {
   async getAll(req, res) {
@@ -27,25 +25,18 @@ class BedroomsController {
 
   async postBedroom(req, res) {
     try {
-      if (!req.file) {
-        throw CustomError.createError({
-          name: 'error file',
-          message: 'Falta cargar una imagen',
-          code: ErrorCode.Not_Found
-        })
-      }
       const { name, description, category } = req.body
       const image = '/uploads/' + req.file.filename
 
       const bedroomDTO = new BedroomDTO(name, description, category, image)
 
-      const validationBedroom = bedroomDTO.validate()
+      // const validationBedroom = bedroomDTO.validate()
 
-      if (validationBedroom.length > 0) {
-        return res
-          .status(400)
-          .json({ status: 'error', payload: validationBedroom })
-      }
+      // if (validationBedroom.length > 0) {
+      //   return res
+      //     .status(400)
+      //     .json({ status: 'error', payload: validationBedroom })
+      // }
 
       const bedroom = await bedroomsServices.postBedroom(bedroomDTO)
 
