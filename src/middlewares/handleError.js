@@ -1,4 +1,4 @@
-import ErrorCode from '../utils/errors/status.code'
+import ErrorCode from '../utils/errors/status.code.js'
 
 export default (error, req, res, next) => {
   switch (error.statusCode) {
