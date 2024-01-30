@@ -1,11 +1,13 @@
 import { bedroomsModel } from './models/bedrooms.model.js'
 import CustomError from '../../utils/errors/custom.error.js'
 import ErrorCode from '../../utils/errors/status.code.js'
+import logger from '../../logger/index.js'
 
 export default class BedroomsDao {
   get = async () => {
     try {
       const bedrooms = await bedroomsModel.find({})
+      logger.info(bedrooms)
       return bedrooms
     } catch (error) {
       throw CustomError.createError({

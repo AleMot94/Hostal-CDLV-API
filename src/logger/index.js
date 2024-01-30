@@ -1,6 +1,6 @@
 import { loggerDev } from './logger.dev.js'
 import { loggerProd } from './logger.prod.js'
-import { entorno } from '../config/ditenv.config.js'
+import { entorno } from '../config/dotenv.config.js'
 
 let logger = null
 

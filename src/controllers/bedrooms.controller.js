@@ -30,14 +30,6 @@ class BedroomsController {
 
       const bedroomDTO = new BedroomDTO(name, description, category, image)
 
-      // const validationBedroom = bedroomDTO.validate()
-
-      // if (validationBedroom.length > 0) {
-      //   return res
-      //     .status(400)
-      //     .json({ status: 'error', payload: validationBedroom })
-      // }
-
       const bedroom = await bedroomsServices.postBedroom(bedroomDTO)
 
       res.status(200).json({

@@ -12,6 +12,8 @@ dotenv.config({
   path: process.argv[2] === 'DEV' ? './.env.dev' : './.env.prod'
 })
 
-entorno.PORT = process.env.PORT
-entorno.MONGO_URL = process.env.MONGO_URL
 entorno.NODE_ENV = process.env.NODE_ENV
+entorno.PORT = process.env.PORT
+entorno.MONGO_USUARIO = process.env.MONGO_USUARIO
+entorno.MONGO_PASS = process.env.MONGO_PASS
+entorno.MONGO_DB = process.env.MONGO_DB

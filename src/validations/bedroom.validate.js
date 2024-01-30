@@ -16,7 +16,7 @@ export function bedroomValidate(req, res, next) {
   }
 
   if (errors.length > 0) {
-    return res.status(401).json({
+    return res.status(400).json({
       status: 'error',
       payload: errors
     })
@@ -27,7 +27,7 @@ export function bedroomValidate(req, res, next) {
 
 export function multerValidate(req, res, next) {
   if (!req.file) {
-    return res.status(401).json({
+    return res.status(400).json({
       status: 'error',
       payload: 'Falta cargar una imagen'
     })
