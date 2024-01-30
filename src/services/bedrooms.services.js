@@ -7,6 +7,10 @@ class BedroomsService {
     return bedroomsDao.get()
   }
 
+  async getById(id) {
+    return bedroomsDao.getById(id)
+  }
+
   async postBedroom({ name, description, category, image }) {
     return bedroomsDao.postOne(name, description, category, image)
   }

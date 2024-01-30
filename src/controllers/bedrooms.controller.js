@@ -4,12 +4,12 @@ import BedroomDTO from '../DAO/mongo-dev/dto/bedroom.dto.js'
 class BedroomsController {
   async getAll(req, res) {
     try {
-      const id = req.params
+      const { id } = req.params
 
       const allBedrooms =
         id === undefined
           ? await bedroomsServices.getAllBedrooms()
-          : await bedroomsServices.getAllBedrooms() // tendria que ser un getByIdBedroom
+          : await bedroomsServices.getById(id)
 
       return res.status(200).json({
         status: 'success',

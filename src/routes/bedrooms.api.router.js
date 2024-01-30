@@ -8,7 +8,7 @@ import {
 
 export const bedroomsRouter = express.Router()
 
-bedroomsRouter.get('/', bedroomsController.getAll)
+bedroomsRouter.get('/:id', bedroomsController.getAll)
 
 bedroomsRouter.post(
   '/',

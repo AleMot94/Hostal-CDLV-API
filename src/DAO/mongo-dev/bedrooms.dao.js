@@ -22,6 +22,22 @@ export default class BedroomsDao {
     }
   }
 
+  getById = async (id) => {
+    try {
+      const bedroom = await bedroomsModel.findById(id)
+
+      const bedroomDTO = new BedroomsGetDTO(bedroom)
+
+      return bedroomDTO
+    } catch (error) {
+      throw CustomError.createError({
+        name: 'error ID',
+        message: 'id inexistente en base de datos',
+        statusCode: ErrorCode.Not_Found
+      })
+    }
+  }
+
   postOne = async (name, description, category, image) => {
     try {
       const bedroom = await bedroomsModel.create({
