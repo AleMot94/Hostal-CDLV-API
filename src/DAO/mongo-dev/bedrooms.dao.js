@@ -70,4 +70,18 @@ export default class BedroomsDao {
       })
     }
   }
+
+  updateById = async (id, update) => {
+    try {
+      const updateBedroom = await bedroomsModel.updateOne({ _id: id }, update)
+
+      return updateBedroom
+    } catch (error) {
+      throw CustomError.createError({
+        name: 'error update',
+        message: 'error en la coneccion DB',
+        statusCode: ErrorCode.Internal_Server_Error
+      })
+    }
+  }
 }

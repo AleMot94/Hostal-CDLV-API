@@ -27,6 +27,17 @@ class BedroomsService {
     const deleteBedroom = await bedroomsDao.deleteById(id)
     return deleteBedroom
   }
+
+  async updateById(id, updateBedroom) {
+    const bedroom = await this.getById(id)
+    const imagePath = path.join(__dirname, '../../public', bedroom.image)
+
+    fs.unlinkSync(imagePath)
+
+    const result = await bedroomsDao.updateById(id, updateBedroom)
+
+    return result
+  }
 }
 
 export const bedroomsServices = new BedroomsService()
