@@ -3,6 +3,7 @@ import cors from 'cors'
 import { connectMongo } from './utils/mongoose.js'
 import { homeRouter } from './routes/home.router.js'
 import { bedroomsRouter } from './routes/bedrooms.api.router.js'
+import { entorno } from './config/dotenv.config.js'
 import handleError from './middlewares/handleError.js'
 import CustomError from './utils/errors/custom.error.js'
 import ErrorCode from './utils/errors/status.code.js'
@@ -14,7 +15,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
-const port = process.env.PORT || 9000 // PORT es la variable de entorno que usa heroku
+const port = entorno.PORT || 9000 // PORT es la variable de entorno que usa heroku
 
 // CONECCION A MONGO
 connectMongo()

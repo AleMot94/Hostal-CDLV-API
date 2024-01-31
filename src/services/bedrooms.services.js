@@ -14,6 +14,13 @@ class BedroomsService {
   async postBedroom({ name, description, category, image }) {
     return bedroomsDao.postOne(name, description, category, image)
   }
+
+  async deleteById(id) {
+    await this.getById(id)
+
+    const deleteBedroom = await bedroomsDao.deleteById(id)
+    return deleteBedroom
+  }
 }
 
 export const bedroomsServices = new BedroomsService()

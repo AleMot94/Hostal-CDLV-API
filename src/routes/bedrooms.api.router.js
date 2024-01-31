@@ -8,6 +8,8 @@ import {
 
 export const bedroomsRouter = express.Router()
 
+bedroomsRouter.get('/', bedroomsController.getAll)
+
 bedroomsRouter.get('/:id', bedroomsController.getAll)
 
 bedroomsRouter.post(
@@ -17,3 +19,5 @@ bedroomsRouter.post(
   multerValidate,
   bedroomsController.postBedroom
 )
+
+bedroomsRouter.delete('/:id', bedroomsController.deleteById)

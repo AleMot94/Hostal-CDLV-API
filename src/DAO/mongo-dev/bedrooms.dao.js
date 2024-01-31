@@ -16,7 +16,7 @@ export default class BedroomsDao {
     } catch (error) {
       throw CustomError.createError({
         name: 'error collection',
-        message: 'coleccion "habitaciones" no encontrada',
+        message: 'coleccion "habitaciones" no encontrada / error DB',
         statusCode: ErrorCode.Not_Found
       })
     }
@@ -31,8 +31,8 @@ export default class BedroomsDao {
       return bedroomDTO
     } catch (error) {
       throw CustomError.createError({
-        name: 'error ID',
-        message: 'id inexistente en base de datos',
+        name: 'error get id',
+        message: 'id no encontrado / error DB',
         statusCode: ErrorCode.Not_Found
       })
     }
@@ -51,7 +51,21 @@ export default class BedroomsDao {
     } catch (error) {
       throw CustomError.createError({
         name: 'error create',
-        message: 'no se pudo crear el documento habitacion',
+        message: 'no se creo el documento bedroom / error DB',
+        statusCode: ErrorCode.Internal_Server_Error
+      })
+    }
+  }
+
+  deleteById = async (id) => {
+    try {
+      const deleteBedroom = await bedroomsModel.deleteOne({ _id: id })
+
+      return deleteBedroom
+    } catch (error) {
+      throw CustomError.createError({
+        name: 'error delete',
+        message: 'error DB',
         statusCode: ErrorCode.Internal_Server_Error
       })
     }
