@@ -2,6 +2,8 @@ import BedroomsDao from '../DAO/mongo-dev/bedrooms.dao.js'
 import fs from 'fs'
 import path from 'path'
 import { __dirname } from '../utils/dirname.js'
+import CustomError from '../utils/errors/custom.error.js'
+import ErrorCode from '../utils/errors/status.code.js'
 
 const bedroomsDao = new BedroomsDao()
 
@@ -28,15 +30,39 @@ class BedroomsService {
     return deleteBedroom
   }
 
-  async updateById(id, updateBedroom) {
-    const bedroom = await this.getById(id)
-    const imagePath = path.join(__dirname, '../../public', bedroom.image)
+  async updateById(id, { name, description, category, image }) {
+    try {
+      const bedroom = await this.getById(id)
 
-    fs.unlinkSync(imagePath)
+      if (!bedroom) {
+        throw CustomError.createError({
+          name: 'error update',
+          message: 'No se encontró el dormitorio con el ID proporcionado',
+          statusCode: ErrorCode.Not_Found
+        })
+      }
 
-    const result = await bedroomsDao.updateById(id, updateBedroom)
+      const imagePath = path.join(__dirname, '../../public', bedroom.image)
+      let prevImg = ''
 
-    return result
+      if (image === null) {
+        prevImg = bedroom.image
+      } else {
+        prevImg = image
+        fs.unlinkSync(imagePath)
+      }
+
+      const updateBedroom = { name, description, category, image: prevImg }
+      const result = await bedroomsDao.updateById({ _id: id }, updateBedroom)
+
+      return result
+    } catch (error) {
+      throw CustomError.createError({
+        name: 'error update',
+        message: 'error en la conexión DB',
+        statusCode: ErrorCode.Internal_Server_Error
+      })
+    }
   }
 }
 

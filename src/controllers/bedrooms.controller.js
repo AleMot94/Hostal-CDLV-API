@@ -64,17 +64,21 @@ class BedroomsController {
 
   async updateById(req, res) {
     try {
+      let image = null
       const { name, description, category } = req.body
-      const image = '/uploads/' + req.file.filename
       const { id } = req.params
+      // const image = '/uploads/' + req.file.filename
+      if (req.file) {
+        image = '/uploads/' + req.file.filename
+      }
 
       const bedroomDTO = new BedroomDTO(name, description, category, image)
 
-      const bedroom = await bedroomsServices.updateById(id, bedroomDTO)
+      await bedroomsServices.updateById(id, bedroomDTO)
 
       res.status(200).json({
         status: 'success',
-        payload: bedroom
+        payload: {}
       })
     } catch (error) {
       return res.status(500).json({

@@ -25,7 +25,5 @@ bedroomsRouter.delete('/:id', bedroomsController.deleteById)
 bedroomsRouter.put(
   '/:id',
   uploader.single('image'),
-  bedroomValidate,
-  multerValidate,
   bedroomsController.updateById
 )

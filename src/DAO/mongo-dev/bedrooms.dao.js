@@ -73,7 +73,10 @@ export default class BedroomsDao {
 
   updateById = async (id, update) => {
     try {
-      const updateBedroom = await bedroomsModel.updateOne({ _id: id }, update)
+      const updateBedroom = await bedroomsModel.updateOne(
+        { _id: id },
+        { $set: update }
+      )
 
       return updateBedroom
     } catch (error) {
