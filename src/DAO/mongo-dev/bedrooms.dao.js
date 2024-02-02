@@ -87,4 +87,16 @@ export default class BedroomsDao {
       })
     }
   }
+
+  deleteAll = async () => {
+    try {
+      await bedroomsModel.deleteMany({})
+    } catch (error) {
+      throw CustomError.createError({
+        name: 'error delete all',
+        message: 'error al querer eliminar todos los documentos bedrooms',
+        statusCode: ErrorCode.Internal_Server_Error
+      })
+    }
+  }
 }

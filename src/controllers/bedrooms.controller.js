@@ -87,6 +87,22 @@ class BedroomsController {
       })
     }
   }
+
+  async deleteAll(req, res) {
+    try {
+      await bedroomsServices.deleteAll()
+
+      res.status(200).json({
+        status: 'success',
+        payload: {}
+      })
+    } catch (error) {
+      return res.status(500).json({
+        status: 'error',
+        payload: error
+      })
+    }
+  }
 }
 
 export const bedroomsController = new BedroomsController()

@@ -64,6 +64,27 @@ class BedroomsService {
       })
     }
   }
+
+  async deleteAll() {
+    try {
+      const allBedrooms = await bedroomsDao.get()
+
+      for (const bedroom of allBedrooms) {
+        const imagePath = path.join(__dirname, '../../public', bedroom.image)
+        fs.unlinkSync(imagePath)
+      }
+
+      const deleteAllBedrooms = await bedroomsDao.deleteAll()
+
+      return deleteAllBedrooms
+    } catch (error) {
+      throw CustomError.createError({
+        name: 'error deleteAll',
+        message: 'Error al eliminar todos los dormitorios',
+        statusCode: ErrorCode.Internal_Server_Error
+      })
+    }
+  }
 }
 
 export const bedroomsServices = new BedroomsService()

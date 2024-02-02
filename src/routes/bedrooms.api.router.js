@@ -8,6 +8,8 @@ import {
 
 export const bedroomsRouter = express.Router()
 
+bedroomsRouter.delete('/delete-all', bedroomsController.deleteAll)
+
 bedroomsRouter.get('/', bedroomsController.getAll)
 
 bedroomsRouter.get('/:id', bedroomsController.getAll)
