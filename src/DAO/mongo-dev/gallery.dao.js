@@ -37,4 +37,21 @@ export default class GalleryDao {
       })
     }
   }
+
+  postOne = async (category, image) => {
+    try {
+      const picture = await galleryModel.create({
+        category,
+        image
+      })
+
+      return picture
+    } catch (error) {
+      throw CustomError.createError({
+        name: 'error create',
+        message: 'no se creo el documento gallery / error DB',
+        statusCode: ErrorCode.Internal_Server_Error
+      })
+    }
+  }
 }
