@@ -8,6 +8,8 @@ import {
 
 export const galleryRouter = express.Router()
 
+galleryRouter.delete('/delete-all', galleryController.deleteAll)
+
 galleryRouter.get('/', galleryController.getAll)
 
 galleryRouter.get('/:id', galleryController.getAll)

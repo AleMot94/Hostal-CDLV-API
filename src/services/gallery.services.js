@@ -63,6 +63,27 @@ class GalleryService {
       })
     }
   }
+
+  async deleteAll() {
+    try {
+      const allPictures = await gallryDao.get()
+
+      for (const picture of allPictures) {
+        const imagePath = path.join('public', picture.image)
+        fs.unlinkSync(imagePath)
+      }
+
+      const deleteAllGallery = await gallryDao.deleteAll()
+
+      return deleteAllGallery
+    } catch (error) {
+      throw CustomError.createError({
+        name: 'error deleteAll',
+        message: 'Error al eliminar todos los dormitorios',
+        statusCode: ErrorCode.Internal_Server_Error
+      })
+    }
+  }
 }
 
 export const galleryServices = new GalleryService()

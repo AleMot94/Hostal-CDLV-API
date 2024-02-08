@@ -83,4 +83,16 @@ export default class GalleryDao {
       })
     }
   }
+
+  deleteAll = async () => {
+    try {
+      await galleryModel.deleteMany({})
+    } catch (error) {
+      throw CustomError.createError({
+        name: 'error delete all',
+        message: 'error al querer eliminar todos los documentos gallery',
+        statusCode: ErrorCode.Internal_Server_Error
+      })
+    }
+  }
 }

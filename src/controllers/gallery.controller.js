@@ -86,6 +86,22 @@ class GalleryController {
       })
     }
   }
+
+  async deleteAll(req, res) {
+    try {
+      await galleryServices.deleteAll()
+
+      res.status(200).json({
+        status: 'success',
+        payload: {}
+      })
+    } catch (error) {
+      return res.status(500).json({
+        status: 'error',
+        payload: error
+      })
+    }
+  }
 }
 
 export const galleryController = new GalleryController()
