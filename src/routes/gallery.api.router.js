@@ -21,3 +21,9 @@ galleryRouter.post(
 )
 
 galleryRouter.delete('/:id', galleryController.deleteById)
+
+galleryRouter.put(
+  '/:id',
+  uploader.single('image'),
+  galleryController.updateById
+)

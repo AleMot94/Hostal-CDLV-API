@@ -61,6 +61,31 @@ class GalleryController {
       })
     }
   }
+
+  async updateById(req, res) {
+    try {
+      let image = null
+      const { category } = req.body
+      const { id } = req.params
+      if (req.file) {
+        image = '/uploads/' + req.file.filename
+      }
+
+      const galeryDTO = new GalleryDTO(category, image)
+
+      await galleryServices.updateById(id, galeryDTO)
+
+      res.status(200).json({
+        status: 'success',
+        payload: {}
+      })
+    } catch (error) {
+      return res.status(500).json({
+        status: 'error',
+        payload: error
+      })
+    }
+  }
 }
 
 export const galleryController = new GalleryController()

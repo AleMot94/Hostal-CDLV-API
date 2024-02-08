@@ -66,4 +66,21 @@ export default class GalleryDao {
       })
     }
   }
+
+  updateById = async (id, update) => {
+    try {
+      const updatePicture = await galleryModel.updateOne(
+        { _id: id },
+        { $set: update }
+      )
+
+      return updatePicture
+    } catch (error) {
+      throw CustomError.createError({
+        name: 'error update',
+        message: 'error en la coneccion DB',
+        statusCode: ErrorCode.Internal_Server_Error
+      })
+    }
+  }
 }
