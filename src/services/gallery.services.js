@@ -1,22 +1,22 @@
-import BedroomsDao from '../DAO/mongo-dev/bedrooms.dao.js'
+import GalleryDao from '../DAO/mongo-dev/gallery.dao.js'
 import fs from 'fs'
 import path from 'path'
 import CustomError from '../utils/errors/custom.error.js'
 import ErrorCode from '../utils/errors/status.code.js'
 
-const bedroomsDao = new BedroomsDao()
+const gallryDao = new GalleryDao()
 
-class BedroomsService {
-  async getAllBedrooms() {
-    return bedroomsDao.get()
+class GalleryService {
+  async getAll() {
+    return gallryDao.get()
   }
 
   async getById(id) {
-    return bedroomsDao.getById(id)
+    return gallryDao.getById(id)
   }
 
-  async postBedroom({ name, description, category, image }) {
-    return bedroomsDao.postOne(name, description, category, image)
+  async post({ name, description, category, image }) {
+    return gallryDao.postOne(name, description, category, image)
   }
 
   async deleteById(id) {
@@ -25,7 +25,7 @@ class BedroomsService {
 
     fs.unlinkSync(imagePath)
 
-    const deleteBedroom = await bedroomsDao.deleteById(id)
+    const deleteBedroom = await gallryDao.deleteById(id)
     return deleteBedroom
   }
 
@@ -52,7 +52,7 @@ class BedroomsService {
       }
 
       const updateBedroom = { name, description, category, image: prevImg }
-      const result = await bedroomsDao.updateById({ _id: id }, updateBedroom)
+      const result = await gallryDao.updateById({ _id: id }, updateBedroom)
 
       return result
     } catch (error) {
@@ -66,14 +66,14 @@ class BedroomsService {
 
   async deleteAll() {
     try {
-      const allBedrooms = await bedroomsDao.get()
+      const allBedrooms = await gallryDao.get()
 
       for (const bedroom of allBedrooms) {
         const imagePath = path.join('public', bedroom.image)
         fs.unlinkSync(imagePath)
       }
 
-      const deleteAllBedrooms = await bedroomsDao.deleteAll()
+      const deleteAllBedrooms = await gallryDao.deleteAll()
 
       return deleteAllBedrooms
     } catch (error) {
@@ -86,4 +86,4 @@ class BedroomsService {
   }
 }
 
-export const bedroomsServices = new BedroomsService()
+export const galleryServices = new GalleryService()
