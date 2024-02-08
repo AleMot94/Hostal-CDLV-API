@@ -1,7 +1,10 @@
 import express from 'express'
 import { galleryController } from '../controllers/gallery.controller.js'
 import { uploader } from '../middlewares/multer.js'
-import { multerValidate } from '../validations/bedroom.validate.js'
+import {
+  multerValidate,
+  galleryValidate
+} from '../validations/bedroom.validate.js'
 
 export const galleryRouter = express.Router()
 
@@ -13,5 +16,8 @@ galleryRouter.post(
   '/',
   uploader.single('image'),
   multerValidate,
+  galleryValidate,
   galleryController.post
 )
+
+galleryRouter.delete('/:id', galleryController.deleteById)

@@ -1,18 +1,16 @@
 import { galleryModel } from './models/gallery.model.js'
 import CustomError from '../../utils/errors/custom.error.js'
 import ErrorCode from '../../utils/errors/status.code.js'
-// import BedroomsGetDTO from './dto/bedrooms.get.dto.js'
+import GalleryGetDTO from './dto/gallery.get.dto.js'
 
 export default class GalleryDao {
   get = async () => {
     try {
       const gallery = await galleryModel.find({})
 
-      // const bedroomsGetDto = bedrooms.map(
-      //   (bedroom) => new BedroomsGetDTO(bedroom)
-      // )
+      const galleryGetDTO = gallery.map((picture) => new GalleryGetDTO(picture))
 
-      return gallery
+      return galleryGetDTO
     } catch (error) {
       throw CustomError.createError({
         name: 'error collection',
@@ -26,9 +24,9 @@ export default class GalleryDao {
     try {
       const gallery = await galleryModel.findById(id)
 
-      // const bedroomDTO = new BedroomsGetDTO(bedroom)
+      const galleryDTO = new GalleryGetDTO(gallery)
 
-      return gallery
+      return galleryDTO
     } catch (error) {
       throw CustomError.createError({
         name: 'error get id',
@@ -50,6 +48,20 @@ export default class GalleryDao {
       throw CustomError.createError({
         name: 'error create',
         message: 'no se creo el documento gallery / error DB',
+        statusCode: ErrorCode.Internal_Server_Error
+      })
+    }
+  }
+
+  deleteById = async (id) => {
+    try {
+      const deletePicture = await galleryModel.deleteOne({ _id: id })
+
+      return deletePicture
+    } catch (error) {
+      throw CustomError.createError({
+        name: 'error delete',
+        message: 'error DB',
         statusCode: ErrorCode.Internal_Server_Error
       })
     }

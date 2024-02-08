@@ -1,5 +1,4 @@
 import { galleryServices } from '../services/gallery.services.js'
-// import BedroomDTO from '../DAO/mongo-dev/dto/bedroom.dto.js'
 import GalleryDTO from '../DAO/mongo-dev/dto/gallery.dto.js'
 
 class GalleryController {
@@ -36,6 +35,24 @@ class GalleryController {
       res.status(200).json({
         status: 'success',
         payload: picturePost
+      })
+    } catch (error) {
+      return res.status(500).json({
+        status: 'error',
+        payload: error
+      })
+    }
+  }
+
+  async deleteById(req, res) {
+    try {
+      const { id } = req.params
+
+      await galleryServices.deleteById(id)
+
+      res.status(200).json({
+        status: 'success',
+        payload: {}
       })
     } catch (error) {
       return res.status(500).json({

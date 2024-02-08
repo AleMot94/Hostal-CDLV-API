@@ -16,7 +16,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
-const port = entorno.PORT || 9000 // PORT es la variable de entorno que usa heroku
+const port = entorno.PORT || 9000
 
 // CONECCION A MONGO
 connectMongo()
