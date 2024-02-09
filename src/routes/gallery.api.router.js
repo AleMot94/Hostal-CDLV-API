@@ -16,7 +16,15 @@ galleryRouter.get('/:id', galleryController.getAll)
 
 galleryRouter.post(
   '/',
+  (req, res, next) => {
+    console.log('Request Body:', req.body)
+    next()
+  },
   uploader.single('image'),
+  (req, res, next) => {
+    console.log('Request Body:', req.body)
+    next()
+  },
   multerValidate,
   galleryValidate,
   galleryController.post

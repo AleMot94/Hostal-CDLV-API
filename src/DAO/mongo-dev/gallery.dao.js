@@ -30,7 +30,7 @@ export default class GalleryDao {
     } catch (error) {
       throw CustomError.createError({
         name: 'error get id',
-        message: 'id no encontrado / error DB',
+        message: 'id no encontrado -- gallery / error DB',
         statusCode: ErrorCode.Not_Found
       })
     }

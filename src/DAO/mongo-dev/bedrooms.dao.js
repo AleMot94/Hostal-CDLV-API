@@ -32,7 +32,7 @@ export default class BedroomsDao {
     } catch (error) {
       throw CustomError.createError({
         name: 'error get id',
-        message: 'id no encontrado / error DB',
+        message: 'id no encontrado -- bedrooms / error DB',
         statusCode: ErrorCode.Not_Found
       })
     }

@@ -44,6 +44,31 @@ export function galleryValidate(req, res, next) {
   next()
 }
 
+export function messageValidate(req, res, next) {
+  const { name, email, message } = req.body
+
+  const errors = []
+
+  if (!name) {
+    errors.push('Falta cargar nombre')
+  }
+  if (!email) {
+    errors.push('Falta cargar el email')
+  }
+  if (!message) {
+    errors.push('Falta cargar un mensaje')
+  }
+
+  if (errors.length > 0) {
+    return res.status(400).json({
+      status: 'error',
+      payload: errors
+    })
+  }
+
+  next()
+}
+
 export function multerValidate(req, res, next) {
   if (!req.file) {
     return res.status(400).json({

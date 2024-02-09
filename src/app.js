@@ -4,6 +4,7 @@ import { connectMongo } from './utils/mongoose.js'
 import { homeRouter } from './routes/home.router.js'
 import { bedroomsRouter } from './routes/bedrooms.api.router.js'
 import { galleryRouter } from './routes/gallery.api.router.js'
+import { messageRouter } from './routes/message.api.router.js'
 import { entorno } from './config/dotenv.config.js'
 import handleError from './middlewares/handleError.js'
 import CustomError from './utils/errors/custom.error.js'
@@ -24,9 +25,16 @@ connectMongo()
 // ENDPOINTS VISTAS
 app.use('/', homeRouter)
 
+app.use((req, res, next) => {
+  console.log('Request Headers:', req.headers)
+  console.log('Request Body:', req.body)
+  next()
+})
+
 // ENDPOINTS API
 app.use('/api/bedrooms', bedroomsRouter)
 app.use('/api/gallery', galleryRouter)
+app.use('/api/message', messageRouter)
 
 app.get('*', (req, res, next) => {
   try {
